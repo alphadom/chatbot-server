@@ -8,6 +8,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -17,9 +23,12 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-08-27T06:08:27.613Z[GMT]")
 
-
+@Entity
+@Table(name = "transaction")
 public class Transaction   {
   @JsonProperty("id")
+  @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id = null;
 
   @JsonProperty("accountId")
@@ -34,14 +43,14 @@ public class Transaction   {
   /**
    * Order Status
    */
-  public enum StatusEnum {
+  public enum StatusEnum1 {
     CREDIT("credit"),
     
     DEBIT("debit");
 
     private String value;
 
-    StatusEnum(String value) {
+    StatusEnum1(String value) {
       this.value = value;
     }
 
@@ -52,8 +61,8 @@ public class Transaction   {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
-      for (StatusEnum b : StatusEnum.values()) {
+    public static StatusEnum1 fromValue(String text) {
+      for (StatusEnum1 b : StatusEnum1.values()) {
         if (String.valueOf(b.value).equals(text)) {
           return b;
         }
@@ -62,7 +71,7 @@ public class Transaction   {
     }
   }
   @JsonProperty("status")
-  private StatusEnum status = null;
+  private StatusEnum1 status = null;
 
   @JsonProperty("complete")
   private Boolean complete = false;
@@ -144,7 +153,7 @@ public class Transaction   {
     this.transactionDate = transactionDate;
   }
 
-  public Transaction status(StatusEnum status) {
+  public Transaction status(StatusEnum1 status) {
     this.status = status;
     return this;
   }
@@ -155,11 +164,11 @@ public class Transaction   {
   **/
   @ApiModelProperty(value = "Order Status")
   
-    public StatusEnum getStatus() {
+    public StatusEnum1 getStatus() {
     return status;
   }
 
-  public void setStatus(StatusEnum status) {
+  public void setStatus(StatusEnum1 status) {
     this.status = status;
   }
 

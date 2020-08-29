@@ -145,11 +145,19 @@ public class Customer  {
 		this.status = status;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", account=" + account + ", city=" + city + ", balance="
-				+ balance + "]";
+				+ balance + ", status=" + status + "]";
 	}
+
+
+	/*
+	 * @Override public String toString() { return "Customer [id=" + id + ", name="
+	 * + name + ", account=" + account + ", city=" + city + ", balance=" + balance +
+	 * "]"; }
+	 */
+	
+	
 
 }

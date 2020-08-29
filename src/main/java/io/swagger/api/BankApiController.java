@@ -20,6 +20,8 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-08-27T06:08:27.613Z[GMT]")
@@ -39,17 +41,23 @@ public class BankApiController implements BankApi {
     }
 
     public ResponseEntity<Map<String, Integer>> getServices() {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Map<String, Integer>>(objectMapper.readValue("{\n  \"key\" : 0\n}", Map.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Map<String, Integer>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+//        String accept = request.getHeader("Accept");
+//        if (accept != null && accept.contains("application/json")) {
+//            try {
+//                return new ResponseEntity<Map<String, Integer>>(objectMapper.readValue("{\n  \"key\" : 0\n}", Map.class), HttpStatus.NOT_IMPLEMENTED);
+//            } catch (IOException e) {
+//                log.error("Couldn't serialize response for content type application/json", e);
+//                return new ResponseEntity<Map<String, Integer>>(HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
+//        }
+    	
+    	Map<String, Integer> bankAccounts = new LinkedHashMap<>();
+    	bankAccounts.put("Savings Account", 1);
+    	bankAccounts.put("Current Account", 2);
+    	bankAccounts.put("Fixed Deposit Account", 3);
+    	bankAccounts.put("Recurring Deposit Account", 4);
 
-        return new ResponseEntity<Map<String, Integer>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<Map<String, Integer>>(bankAccounts, HttpStatus.OK);
     }
 
 }

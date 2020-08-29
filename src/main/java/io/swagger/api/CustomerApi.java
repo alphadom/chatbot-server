@@ -121,7 +121,7 @@ public interface CustomerApi {
     @RequestMapping(value = "/customer/account/{accountId}",
         produces = { "application/xml", "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<Transaction> getTransactionsByAccountId(@Min(1L) @Max(10L) @ApiParam(value = "ID of pet that needs to be fetched",required=true, allowableValues="") @PathVariable("accountId") Long accountId
+    ResponseEntity<List<Transaction>> getTransactionsByAccountId(@Min(1L) @Max(10L) @ApiParam(value = "ID of pet that needs to be fetched",required=true, allowableValues="") @PathVariable("accountId") Long accountId
 );
 
 

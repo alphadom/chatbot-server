@@ -15,11 +15,21 @@ import io.swagger.model.Customer.StatusEnum;
 public interface CustomerRepo extends JpaRepository<Customer, Long> {
 	
 	Customer findById(long custid);
-	List<Customer> findByStatus(StatusEnum pending);
 	
 	@Transactional
 	@Modifying
 	@Query("update Customer c set c.name = ?1, c.city = ?2 where c.id = ?3")
 	void updateCustomer(String name, String city, Long id);
+	
+	//used for POST accounts -> /customer​/{customerId}​/account​/{accountId}​/balance
+	@Transactional
+	@Modifying
+	@Query("update Customer c set c.balance = ?1 where c.id = ?2")
+	void updateCustomerBalance(Long balance, Long id);
 
+	//findCustomersByStatus
+	List<Customer> findByStatus(StatusEnum pending);
+	
+	//findCustomerByAccount
+	List<Customer> findByAccount(String account);
 }
