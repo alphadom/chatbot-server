@@ -14,6 +14,8 @@ import io.swagger.repos.TransactionRepo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.exception.CustomerNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -267,7 +269,14 @@ public class CustomerApiController implements CustomerApi {
     	long custid = custbody.getId();
         Customer customer = customerRepo.findById(custid);
    
-        customerRepo.updateCustomer(custbody.getName(), custbody.getCity(), custid);
+        if(customer!=null)
+        {
+            customerRepo.updateCustomer(custbody.getName(), custbody.getCity(), custid);
+        }
+        else
+        {
+        	throw new CustomerNotFoundException(custid);
+        }
         
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
