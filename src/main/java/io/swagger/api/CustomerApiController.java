@@ -148,8 +148,15 @@ public class CustomerApiController implements CustomerApi {
 //                return new ResponseEntity<Customer>(HttpStatus.INTERNAL_SERVER_ERROR);
 //            }
         	Customer cust = customerRepo.findById(customerId);
-        	System.out.println("-----> got customer " + cust);
-        	return new ResponseEntity<Customer>(HttpStatus.OK);
+        	if(cust!=null)
+        	{
+        		return new ResponseEntity<Customer>(cust, HttpStatus.OK);
+        	}
+        	else
+        	{
+        		throw new CustomerNotFoundException(customerId);
+        	}
+        	
         }
 
         return new ResponseEntity<Customer>(HttpStatus.NOT_IMPLEMENTED);
