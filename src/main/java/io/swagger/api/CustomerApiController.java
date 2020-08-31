@@ -58,12 +58,14 @@ public class CustomerApiController implements CustomerApi {
         this.request = request;
     }
 
+    // POST/customer
     public ResponseEntity<Void> addPet(@ApiParam(value = "Customer object that needs to be added to the bank" ,required=true )  @Valid @RequestBody Customer body
 ) {
         customerRepo.save(body);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
+    // DELETE/customer/{customerId}
     public ResponseEntity<Void> deleteCustomer(@ApiParam(value = "customer id to delete",required=true) @PathVariable("customerId") Long customerId
 ,@ApiParam(value = "" ) @RequestHeader(value="api_key", required=false) String apiKey
 ) {
@@ -81,6 +83,7 @@ public class CustomerApiController implements CustomerApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
+    // GET /customer/findByStatus
     public ResponseEntity<List<Customer>> findCustomersByStatus(@NotNull @ApiParam(value = "Status values that need to be considered for filter", required = true, allowableValues = "active, hold, inactive, pending") @Valid @RequestParam(value = "status", required = true) List<String> status
 ) {
     	List<Customer> outList = new ArrayList<>();
@@ -114,6 +117,7 @@ public class CustomerApiController implements CustomerApi {
         
     }
 
+    // GET/customer/accounts
     public ResponseEntity<List<Customer>> findPetsByAccount(@NotNull @ApiParam(value = "Tags to filter by", required = true) @Valid @RequestParam(value = "tags", required = true) List<String> tags
 ) {
     	List<Customer> outList = new ArrayList<>();
@@ -137,6 +141,7 @@ public class CustomerApiController implements CustomerApi {
         return new ResponseEntity<List<Customer>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    // GET/customer/{customerId}
     public ResponseEntity<Customer> getCustomerById(@ApiParam(value = "ID of pet to return",required=true) @PathVariable("customerId") Long customerId
 ) {
         String accept = request.getHeader("Accept");
@@ -179,6 +184,7 @@ public class CustomerApiController implements CustomerApi {
         return new ResponseEntity<List<Transaction>>(allTrxs, HttpStatus.OK);
     }
 
+    // POST/customer/{customerId}/account/{accountId}/balance
     public ResponseEntity<Balance> placeOrder(@ApiParam(value = "ID of customer to balance",required=true) @PathVariable("customerId") Long customerId
 ,@ApiParam(value = "ID of account to get balance",required=true) @PathVariable("accountId") Long accountId
 ,@ApiParam(value = "order placed for purchasing the pet" ,required=true )  @Valid @RequestBody Balance body
@@ -270,7 +276,7 @@ public class CustomerApiController implements CustomerApi {
         return new ResponseEntity<Transaction>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    //PUT /customer ---update an existing customer
+    // PUT/customer ---update an existing customer
     public ResponseEntity<Void> updateCusotmer(@ApiParam(value = "Pet object that needs to be added to the store" ,required=true )  @Valid @RequestBody Customer custbody
 ) {
     	long custid = custbody.getId();
@@ -288,12 +294,14 @@ public class CustomerApiController implements CustomerApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
+    // POST/customer/{customerId}
     public ResponseEntity<Void> updateCustomerWithForm(@ApiParam(value = "ID of customer that needs to be updated",required=true) @PathVariable("customerId") Long customerId
 ) {
         String accept = request.getHeader("Accept");
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    // POST/customer/{customerId}/uploadImage
     public ResponseEntity<ModelApiResponse> uploadFile(@ApiParam(value = "ID of customer to update",required=true) @PathVariable("customerId") Long customerId
 ) {
         String accept = request.getHeader("Accept");
